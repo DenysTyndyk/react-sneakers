@@ -2,6 +2,44 @@
 function App() {
   return (
     <div className="Wrapper clear">
+      <div className="Overlay">
+        <div className="Drawer">
+          <h2 className="mb-30">Cart</h2>
+
+          <div className="Items">
+          <div className="CartItem d-flex align-center mb-20">
+            <div style={{backgroundImage: 'url(/image/img-sneakers/sneakers2.jpg)'}} className="CartItemImg"></div>
+            <div className="mr-20 flex">
+            <p className="mb-5">Men's Nike Blazer Mid Suede Sneakers</p>
+            <b>2000 USDT</b>
+            </div>
+            <img className="RemoveBtn" src="/image/btn-remove.svg" alt="Remove"/>
+          </div>
+          <div className="CartItem d-flex align-center mb-20">
+            <div style={{backgroundImage: 'url(/image/img-sneakers/sneakers1.jpg)'}} className="CartItemImg"></div>
+            <div className="mr-20 flex">
+            <p className="mb-5">Men's Nike Blazer Mid Suede Sneakers</p>
+            <b>2000 USDT</b>
+            </div>
+            <img className="RemoveBtn" src="/image/btn-remove.svg" alt="Remove"/>
+          </div>
+          </div>
+
+          <ul className="CartTotalBlock">
+          <li>
+            <span>Total:</span>
+            <div></div>
+            <b>4000 USDT</b>
+          </li>
+          <li>
+          <span>Tax 5%:</span>
+            <div></div>
+            <b> 200 USDT</b>
+          </li>
+          </ul>
+        </div>
+      </div>
+
      <header className="d-flex justify-between align-center p-40" >
       <div className="d-flex align-center">
       <img width={40} height={40} src="/image/logo.png"/>
@@ -21,10 +59,19 @@ function App() {
     </ul>
      </header>
      <div className="Content p-40">
-      <h1 className="mb-40">All sneakers</h1>
+      <div className="d-flex justify-between align-center mb-40">
+      <h1>All sneakers</h1>
+      <div className="Search-block d-flex">
+      <img src="/image/serchicon.svg" alt="Search"/>
+      <input placeholder="Search..."/>
+      </div>
+      </div>
       
       <div className="d-flex">
       <div className="Card">
+        <div className="Favorite">
+        <img src="/image/heart-unliked.svg" alt="Unliked"/>
+        </div>
       <img width={133} height={112} src="/image/img-sneakers/sneakers1.jpg" alt="Sneakers" />
       <h5>Men's Nike Blazer Mid Suede Sneakers</h5>
       <div className="d-flex justify-between align-center">
@@ -51,7 +98,6 @@ function App() {
         </button>
       </div>
       </div>
-
       <div className="Card">
       <img width={133} height={112} src="/image/img-sneakers/sneakers3.jpg" alt="Sneakers" />
       <h5>Men's Nike Blazer Mid Suede Sneakers</h5>

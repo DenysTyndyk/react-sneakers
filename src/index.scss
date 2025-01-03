@@ -6,6 +6,9 @@ body {
   background-color: #e7f6ff;
 }
 
+*{
+  font-family: 'Inter', system-ui;
+}
 
 .Wrapper{
 background: #FFFFFF;
@@ -39,7 +42,17 @@ header{
   width: 220px;
   border-radius: 40px;
   margin-right: 30px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 
+
+  .Favorite{
+    position: absolute;
+    cursor: pointer;
+  }
+ &:hover{
+    box-shadow: 0px 14px 35px rgba(0, 0, 0, 0.06);
+    transform: translateY(-5px);
+  }
   span{
     font-size: 13px;
     opacity: 0.5;
@@ -64,4 +77,90 @@ header{
   height: 32px;
   width: 32px;
   cursor: pointer;
+}
+
+.Search-block{
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  padding: 0 15px;
+  
+  input{
+    border:0;
+    padding: 13px;
+    font-size: 16px;
+    width: 200px;
+  }
+}
+
+.Overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.Drawer{
+position: absolute;
+padding: 30px;
+right: 0;
+width: 420px;
+height: 100%;
+background: #FFFFFF;
+box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+
+
+h2{
+  margin: 0;
+  font-size: 24px;
+}
+}
+
+.CartTotalBlock{
+li{
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+  div{
+    flex: 1;
+    height: 1px;
+    border: 1px dashed #DFDFDF;
+    position: relative;
+    top: -4px;
+    margin: 0 7px;
+  }
+}
+
+.CartItem{
+  border: 1px solid #f3f3f3;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
+  .CartItemImg{
+    height: 70px;
+    width: 70px;
+    background-size: contain;
+    background-position: 0 -3px;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+  }
+  p{
+    font-size:14px;
+    margin: 0;
+  }
+  b{
+    font-size:16px;
+  }
+  .RemoveBtn{
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    &:hover{
+      opacity: 1;
+    }
+  }
 }
