@@ -100,6 +100,9 @@ header{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 1;
+  //потім видалити
+  display: none;
+  //потім видалити
 }
 
 .Drawer{
@@ -110,7 +113,14 @@ width: 420px;
 height: 100%;
 background: #FFFFFF;
 box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+display: flex;
+  flex-direction: column;
 
+  .Items{
+    flex: 1;
+    overflow: auto;
+    margin-bottom: 40px;
+  }
 
 h2{
   margin: 0;
@@ -118,22 +128,58 @@ h2{
 }
 }
 
-.CartTotalBlock{
-li{
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 20px;
-}
+.CartTotalBlock {
+  ul {
+    display: block;
+    margin-bottom: 40px !important;
 
-  div{
-    flex: 1;
-    height: 1px;
-    border: 1px dashed #DFDFDF;
-    position: relative;
-    top: -4px;
-    margin: 0 7px;
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    div {
+      flex: 1;
+      height: 1px;
+      border: 1px dashed #DFDFDF;
+      position: relative;
+      top: -4px;
+      margin: 0 7px;
+    }
   }
 }
+  .GreenButton{
+    position: relative;
+    &:hover{
+      img{
+        transform: translateX(5px);
+      }
+    }
+    img{
+      position: absolute;
+      right: 30px;
+      top: 20px;
+    transition: transform 0.15s ease-in-out;
+    }
+  width: 100%;
+  height: 55px;
+  background: #9DD458;
+    border-radius: 18px;
+    border: 0;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    &:hover{
+      background: lighten($color: #9dd558, $amount: 5%);
+    }
+    &:active{
+      background: darken(#9dd558, $amount: 5%);
+    }
+  }
+
 
 .CartItem{
   border: 1px solid #f3f3f3;
