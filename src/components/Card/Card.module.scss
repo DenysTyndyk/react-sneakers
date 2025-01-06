@@ -6,6 +6,9 @@
   margin-right: 30px;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 
+  .plus{
+    cursor: pointer;
+  }
 
   .Favorite{
     position: absolute;
@@ -29,4 +32,13 @@
     font-weight: 400;
     font-size: 14px;
   }
+}
+.button{
+  background:#FFFFFF;
+  border: 1px solid #F2F2F2;
+  box-sizing: border-box;
+  border-radius: 8px;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
 }
