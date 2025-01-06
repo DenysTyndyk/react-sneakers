@@ -1,11 +1,13 @@
+import styles from "./Drawer.module.scss";
+
 function Drawer() {
     return (
-        <div className="Overlay">
-    <div className="Drawer">
+        <div className={styles.Overlay}>
+    <div className={styles.Drawer}>
         <h2 className=" d-flex justify-between mb-30 ">Cart <img className="RemoveBtn cu-p"
-                                                                     src="/image/btn-remove.svg" alt="Remove"/></h2>
+                                                                 src="/image/btn-remove.svg" alt="Remove"/></h2>
 
-            <div className="Items">
+            <div className={styles.Items}>
                 <div className="CartItem d-flex align-center mb-20">
                     <div style={{backgroundImage: 'url(/image/img-sneakers/sneakers2.jpg)'}}
                          className="CartItemImg"></div>
