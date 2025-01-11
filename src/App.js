@@ -2,16 +2,18 @@ import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import Drawer from "./components/Drawer/Drawer";
 import React from "react";
-const arr =[
-    {description: "Men's Nike Blazer Mid Suede Sneakers" , price: 100 , img:"/image/img-sneakers/sneakers1.jpg" },
-    {description: "Men's Nike Air Max 270 Sneakers" , price: 150 , img:"/image/img-sneakers/sneakers2.jpg"},
-    {description: "Men's Nike Blazer Mid Suede Sneakers" , price: 200 , img:"/image/img-sneakers/sneakers4.jpg"},
-    {description: "Puma X Aka Boku Future Rider sneakers." , price: 300 , img:"/image/img-sneakers/sneakers3.jpg"},
-];
 
 function App() {
-
+    const [items,setItems] = React.useState([]);
     const [cartOpened,setCartOpened] = React.useState(false);
+
+    React.useEffect(()=>{ //глянути відео
+    fetch('https://678270e6c51d092c3dcf8223.mockapi.io/items').then((response)=> {
+        return response.json();
+    }).then(json=> {
+        setItems(json);
+    });
+    },[])
 
   return (
     <div className="Wrapper clear">
@@ -26,9 +28,9 @@ function App() {
       </div>
       </div>
       
-      <div className="d-flex">
+      <div className="d-flex flex-wrap ">
           {
-              arr.map((obj) => (<Card description={obj.description}
+              items.map((obj) => (<Card description={obj.description}
                                    price={obj.price}
                                    imgUrl={obj.img}
                                    onFavorite={()=>console.log("Click on Favorite")}
