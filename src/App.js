@@ -5,6 +5,7 @@ import React from "react";
 
 function App() {
     const [items,setItems] = React.useState([]);
+    const [cartitems,setCartItems] = React.useState([]);
     const [cartOpened,setCartOpened] = React.useState(false);
 
     React.useEffect(()=>{ //глянути відео
@@ -15,9 +16,13 @@ function App() {
     });
     },[])
 
+    const onAddToCart = (obj) => {
+        setCartItems(prev=>[...prev,obj]);
+    };
+
   return (
     <div className="Wrapper clear">
-        {cartOpened && <Drawer onClose={()=>setCartOpened(false)}/> }
+        {cartOpened && <Drawer items = {cartitems} onClose={()=>setCartOpened(false)}/> }
         <Header onClickCart={() => setCartOpened(true)} />
         <div className="Content p-40">
         <div className="d-flex justify-between align-center mb-40">
@@ -30,11 +35,11 @@ function App() {
       
       <div className="d-flex flex-wrap ">
           {
-              items.map((obj) => (<Card description={obj.description}
-                                   price={obj.price}
-                                   imgUrl={obj.img}
+              items.map((item) => (<Card description={item.description}
+                                   price={item.price}
+                                   imgUrl={item.img}
                                    onFavorite={()=>console.log("Click on Favorite")}
-                                   onPlus={()=>console.log("Click on Add")} />
+                                   onPlus={(obj)=> onAddToCart(obj)} />
               ))
           }
       </div>
