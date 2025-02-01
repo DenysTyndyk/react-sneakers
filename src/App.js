@@ -1,49 +1,71 @@
-import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import Drawer from "./components/Drawer/Drawer";
+import Home from "../src/pages/Home";
+import Fovorites from "../src/pages/Fovorites";
+import {Route,Routes} from "react-router-dom";
+import axios from 'axios';
 import React from "react";
+
+import styles from "./components/Drawer/Drawer.module.scss";
 
 function App() {
     const [items,setItems] = React.useState([]);
     const [cartitems,setCartItems] = React.useState([]);
+    const [Favorites,setFavorites] = React.useState([]);
     const [cartOpened,setCartOpened] = React.useState(false);
+    const [isLoading,SetLoading] = React.useState(true);
 
-    React.useEffect(()=>{ //глянути відео
-    fetch('https://678270e6c51d092c3dcf8223.mockapi.io/items').then((response)=> {
-        return response.json();
-    }).then(json=> {
-        setItems(json);
-    });
+    const [searchValue,SetSearchValue] = React.useState('');
+
+
+    React.useEffect(()=>{
+        async function fetchData(){
+            const itemsResponce = await axios.get('https://678270e6c51d092c3dcf8223.mockapi.io/items');
+            const cartResponce = await axios.get('https://678270e6c51d092c3dcf8223.mockapi.io/cart');
+            SetLoading(false);
+            setItems(itemsResponce.data)
+            setCartItems(cartResponce.data);
+        }
+        fetchData();
     },[])
 
     const onAddToCart = (obj) => {
-        setCartItems(prev=>[...prev,obj]);
+        try{
+        if(cartitems.find((item) => Number(item.id) === Number(obj.id))){
+            axios.delete(`https://678270e6c51d092c3dcf8223.mockapi.io/cart/${obj.id}`);
+            setCartItems((prev)=>prev.filter((item) => item.id !== obj.id ));
+        }
+        else {
+            axios.post('https://678270e6c51d092c3dcf8223.mockapi.io/cart', obj )
+            setCartItems((prev) => [...prev, obj]);
+        }
+        }
+        catch(error){
+          console.log(error);
+        }
     };
+
+    const onRemoveItem = (id) => {
+        axios.delete(`https://678270e6c51d092c3dcf8223.mockapi.io/cart/${id}`);
+        setCartItems((prev) => prev.filter((item) => item.id !== id));
+    }
+
+    const onChangeSearchInput = (event) => {
+        SetSearchValue(event.target.value);
+    }
+
+    const TotalPrice = () =>{
+        return cartitems.reduce((total,item) => total + Number(item.price),0)
+    }
 
   return (
     <div className="Wrapper clear">
-        {cartOpened && <Drawer items = {cartitems} onClose={()=>setCartOpened(false)}/> }
-        <Header onClickCart={() => setCartOpened(true)} />
-        <div className="Content p-40">
-        <div className="d-flex justify-between align-center mb-40">
-      <h1>All sneakers</h1>
-      <div className="Search-block d-flex">
-      <img src="/image/serchicon.svg" alt="Search"/>
-      <input placeholder="Search..."/>
-      </div>
-      </div>
-      
-      <div className="d-flex flex-wrap ">
-          {
-              items.map((item) => (<Card description={item.description}
-                                   price={item.price}
-                                   imgUrl={item.img}
-                                   onFavorite={()=>console.log("Click on Favorite")}
-                                   onPlus={(obj)=> onAddToCart(obj)} />
-              ))
-          }
-      </div>
-     </div>
+        {cartOpened && <Drawer items = {cartitems} onClose={()=>setCartOpened(false)} onRemove={onRemoveItem} TotalPrice={TotalPrice}/>}
+        <Header onClickCart={() => setCartOpened(true)} TotalPrice={TotalPrice} />
+        <Routes >
+            <Route path="/" exact element={<Home items={items} searchValue={searchValue} SetSearchValue={SetSearchValue} onChangeSearchInput={onChangeSearchInput} onAddToCart={onAddToCart} cartitems={cartitems} isLoading={isLoading} />} />
+            <Route path="/fovorites" exact element={<Fovorites />} />
+        </Routes>
     </div>
   );
 }
