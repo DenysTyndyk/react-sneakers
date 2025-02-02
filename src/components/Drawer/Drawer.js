@@ -1,7 +1,15 @@
 import styles from "./Drawer.module.scss";
-
+import Info from "../info";
+import React from 'react'
+import AppContext from "../../context";
 function Drawer({onClose,onRemove,items = [],TotalPrice}) {
 
+    const [isOrderComplate,SetOrederComplate] = React.useState(false);
+    const {setCartItems} = React.useContext(AppContext);
+    const onClickOrder = () =>{
+        SetOrederComplate(true);
+        setCartItems([]);
+    }
 
     const TaxPrice = () =>{
         return TotalPrice()/100 * 5;
@@ -40,25 +48,15 @@ function Drawer({onClose,onRemove,items = [],TotalPrice}) {
                             <b> {TaxPrice()} USDT</b>
                         </li>
                     </ul>
-                    <button className={styles.GreenButton}>
+                    <button onClick={  onClickOrder} className={styles.GreenButton}>
                         Checkout
                         <img src="/image/Arow.svg" alt="Arrow"/>
                     </button>
                 </div>
 
             </div> : (
-                <div class="cartEmpty d-flex align-center justify-center flex-column flex">
-                    <img class="mb-20" width="120px" height="120px" src="/image/empty-cart.jpg" alt="Cart Empty"/>
-                    <h2>Cart empty</h2>
-                    <p class="opacity-6">Add a pair of sneakers to complete the order </p>
-                    <button onClick={onClose} className={styles.GreenButton2}>
-                        <img src="/image/Arow2.svg" alt="Arow"/>
-                        Go back
-                    </button>
-                </div>
-            )
-        }
-
+                <Info title={isOrderComplate ?" Order completed" : "Cart empty" } description={isOrderComplate ? "Your order #18 will be transferred to courier delivery soon" : "Add a pair of sneakers to complete the order"} image={isOrderComplate ? "/image/complite-order.jpg" :"/image/empty-cart.jpg"}/>
+            )}
         </div>
         </div>
     );

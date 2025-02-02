@@ -3,10 +3,12 @@ import Drawer from "./components/Drawer/Drawer";
 import Home from "../src/pages/Home";
 import Fovorites from "../src/pages/Fovorites";
 import {Route,Routes} from "react-router-dom";
+import AppContext from "./context";
 import axios from 'axios';
 import React from "react";
 
 import styles from "./components/Drawer/Drawer.module.scss";
+
 
 function App() {
     const [items,setItems] = React.useState([]);
@@ -58,15 +60,25 @@ function App() {
         return cartitems.reduce((total,item) => total + Number(item.price),0)
     }
 
+    const isItemAdded = (id) => {
+        return cartitems.some((item) => Number(item.id) === Number(id))
+    }
+
   return (
-    <div className="Wrapper clear">
-        {cartOpened && <Drawer items = {cartitems} onClose={()=>setCartOpened(false)} onRemove={onRemoveItem} TotalPrice={TotalPrice}/>}
-        <Header onClickCart={() => setCartOpened(true)} TotalPrice={TotalPrice} />
-        <Routes >
-            <Route path="/" exact element={<Home items={items} searchValue={searchValue} SetSearchValue={SetSearchValue} onChangeSearchInput={onChangeSearchInput} onAddToCart={onAddToCart} cartitems={cartitems} isLoading={isLoading} />} />
-            <Route path="/fovorites" exact element={<Fovorites />} />
-        </Routes>
-    </div>
+      <AppContext.Provider value={{cartitems,items,Favorites,isItemAdded,setCartOpened,setCartItems}}>
+          <div className="Wrapper clear">
+              {cartOpened && <Drawer items={cartitems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}
+                                     TotalPrice={TotalPrice}/>}
+              <Header onClickCart={() => setCartOpened(true)} TotalPrice={TotalPrice}/>
+              <Routes>
+                  <Route path="/" exact
+                         element={<Home items={items} searchValue={searchValue} SetSearchValue={SetSearchValue}
+                                        onChangeSearchInput={onChangeSearchInput} onAddToCart={onAddToCart}
+                                        cartitems={cartitems} isLoading={isLoading} />}/>
+                  <Route path="/fovorites" exact element={<Fovorites/>}/>
+              </Routes>
+          </div>
+      </AppContext.Provider>
   );
 }
 

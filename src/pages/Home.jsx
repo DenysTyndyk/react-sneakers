@@ -1,8 +1,9 @@
 import Card from "../components/Card/Card";
 import React from "react";
+import AppContext from "../context";
 
-function Home({items, searchValue, SetSearchValue ,onChangeSearchInput, onAddToCart,cartitems,isLoading,}){
-
+function Home({items, searchValue, SetSearchValue ,onChangeSearchInput, onAddToCart,isLoading,}){
+    const {isItemAdded} = React.useContext(AppContext);
     const RenderItems = () => {
         const filteredItems = items.filter(item => item.description.toLowerCase().includes(searchValue.toLowerCase()),
         );
@@ -10,12 +11,11 @@ function Home({items, searchValue, SetSearchValue ,onChangeSearchInput, onAddToC
             <Card
                 key={index}
                 onPlus={(obj) => onAddToCart(obj)}
-                added={cartitems.some((obj) => Number(obj.id) === Number(item.id) )}
+                added={isItemAdded(item && item.id)}
                 loading = {isLoading}
                 {...item}/>
         ))
     }
-
     return (
         <div className="Content p-40">
             <div className="d-flex justify-between align-center mb-40">
