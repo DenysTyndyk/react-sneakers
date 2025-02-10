@@ -2,9 +2,11 @@
   "name": "react-sneacers",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://denystyndyk.github.io/react-sneakers",
   "dependencies": {
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
+    "gh-pages": "^6.3.0",
     "macro-css": "^1.0.5",
     "postcss-loader": "^8.1.1",
     "react": "^19.0.0",
@@ -20,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
