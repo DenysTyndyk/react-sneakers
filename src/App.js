@@ -38,32 +38,6 @@ function App() {
         fetchData();
     },[])
 
-    // const onAddToCart = (obj) => {
-    //     try{
-    //         const FindItem = cartitems.find((item) => Number(item.parentId) === Number(obj.id));
-    //     if(FindItem){
-    //         setCartItems((prev)=>prev.filter((item) => Number(item.parentId) !== Number(obj.id) ));
-    //         axios.delete(`https://678270e6c51d092c3dcf8223.mockapi.io/cart/${FindItem.id}`);
-    //     }
-    //     else {
-    //         setCartItems((prev) => [...prev, obj]);
-    //         const {data} = axios.post('https://678270e6c51d092c3dcf8223.mockapi.io/cart', obj )
-    //         setCartItems((prev) => prev.map(item => {
-    //             if(item.parentId === data.parentId){
-    //                 return {
-    //                     ...item,
-    //                     id: data.id,
-    //                 };
-    //             }
-    //             return item;
-    //         } ),);
-    //     }
-    //     }
-    //     catch(error){
-    //       console.log(error);
-    //     }
-    // };
-
     const onAddToCart = async (obj) => {
         try {
             const FindItem = cartitems.find((item) => item && Number(item.parentId) === Number(obj.id));
@@ -119,12 +93,12 @@ function App() {
                                      TotalPrice={TotalPrice} opened ={cartOpened}/>
               <Header onClickCart={() => setCartOpened(true)} TotalPrice={TotalPrice}/>
               <Routes>
-                  <Route path="/" exact
+                  <Route path="" exact
                          element={<Home items={items} searchValue={searchValue} SetSearchValue={SetSearchValue}
                                         onChangeSearchInput={onChangeSearchInput} onAddToCart={onAddToCart}
                                         cartitems={cartitems} isLoading={isLoading} />}/>
-                  <Route path="/fovorites" exact element={<Fovorites/>}/>
-                  <Route path="/Orders" exact element={<Orders/>}/>
+                  <Route path="fovorites" exact element={<Fovorites/>}/>
+                  <Route path="Orders" exact element={<Orders/>}/>
 
               </Routes>
           </div>

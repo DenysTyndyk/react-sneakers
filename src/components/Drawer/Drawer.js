@@ -18,7 +18,7 @@ function Drawer({onClose,onRemove,items = [],TotalPrice, opened}) {
         <div className={`${styles.Overlay} ${opened ? styles.overplayVisible : ''} `}>
             <div className={styles.Drawer}>
                 <h2 className=" d-flex justify-between mb-30 ">Cart <img onClick={onClose} className="RemoveBtn cu-p"
-                                                                         src="/image/btn-remove.svg" alt="Remove"/></h2>
+                                                                         src="image/btn-remove.svg" alt="Remove"/></h2>
 
                 {items.length > 0 ?
                     <div className={styles.Items}>
@@ -30,9 +30,8 @@ function Drawer({onClose,onRemove,items = [],TotalPrice, opened}) {
                                     <p className="mb-5">{obj.description}</p>
                                     <b>{obj.price} USDT</b>
                                 </div>
-                                {/*кнопка*/}
                                 <img onClick={() => onRemove(obj.id)} className={styles.RemoveBtn}
-                                     src="/image/btn-remove.svg"
+                                     src="image/btn-remove.svg"
                                      alt="Remove"/>
                             </div>
                         ))}
@@ -51,14 +50,14 @@ function Drawer({onClose,onRemove,items = [],TotalPrice, opened}) {
                             </ul>
                             <button onClick={onClickOrder} className={styles.GreenButton}>
                                 Checkout
-                                <img src="/image/Arow.svg" alt="Arrow"/>
+                                <img src="image/Arow.svg" alt="Arrow"/>
                             </button>
                         </div>
 
                     </div> : (
                         <Info title={isOrderComplate ? " Order completed" : "Cart empty"}
                               description={isOrderComplate ? "Your order #18 will be transferred to courier delivery soon" : "Add a pair of sneakers to complete the order"}
-                              image={isOrderComplate ? "/image/complite-order.jpg" : "/image/empty-cart.jpg"}/>
+                              image={isOrderComplate ? "image/complite-order.jpg" : "image/empty-cart.jpg"}/>
                     )}
             </div>
         </div>
