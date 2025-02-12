@@ -25,3 +25,24 @@ To run this project using Docker, follow these steps:
 git clone https://github.com/DenysTyndyk/react-sneakers.git
 cd react-sneakers
 docker-compose up --build -d
+```
+
+# DOCKER
+- підтняти docker-compose
+```sh
+docker-compose up
+```
+- підняти docker-compose і перебілдити проект
+```sh
+docker-compose up --build
+```
+
+- Зупити та видалити контейнер
+```sh
+docker-compose down
+```
+
+- Зупити, видалити контейнер та всі image
+```sh
+docker-compose down --rmi all
+```

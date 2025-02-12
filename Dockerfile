@@ -1,11 +1,13 @@
 # Використовуємо офіційний Node.js образ
-FROM node:18
+FROM node:20-alpine
 
 # Встановлюємо робочу директорію
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Копіюємо package.json та встановлюємо залежності
-COPY package.json package-lock.json ./
+COPY package*.json  .
+
+# інсталюємо пакети до проекта в середині контейнера
 RUN npm install
 
 # Копіюємо весь код проекту
