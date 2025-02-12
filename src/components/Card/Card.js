@@ -35,7 +35,7 @@ function Card({id,description,imgUrl,price, onPlus,added = false,loading = false
                         <rect x="2" y="160" rx="5" ry="5" width="80" height="24"/>
                         <rect x="118" y="152" rx="10" ry="10" width="32" height="32"/>
                     </ContentLoader> : <> <div className={styles.Favorite} onClick={onClickFavirite}>
-                        <img src={isFavorite ? 'image/heart-liked.svg' : 'image/heart-unliked.svg'} alt="Unliked"/>
+                        <img src={isFavorite ? '/image/heart-liked.svg' : '/image/heart-unliked.svg'} alt="Unliked"/>
                     </div>
                 <img width={133} height={112} src={imgUrl} alt="Sneakers"/>
     <h5>{description}</h5>
