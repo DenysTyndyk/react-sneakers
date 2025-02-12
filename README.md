@@ -28,21 +28,21 @@ docker-compose up --build -d
 ```
 
 # DOCKER
-- підтняти docker-compose
+- up docker-compose
 ```sh
 docker-compose up
 ```
-- підняти docker-compose і перебілдити проект
+- up docker-compose and rebuild the project
 ```sh
 docker-compose up --build
 ```
 
-- Зупити та видалити контейнер
+- Stop and delete a container
 ```sh
 docker-compose down
 ```
 
-- Зупити, видалити контейнер та всі image
+- Stop, delete the container and all images
 ```sh
 docker-compose down --rmi all
 ```
