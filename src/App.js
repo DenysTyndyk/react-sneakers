@@ -3,7 +3,6 @@ import Drawer from "./components/Drawer/Drawer";
 import Home from "../src/pages/Home";
 import Fovorites from "../src/pages/Fovorites";
 import Orders from "../src/pages/Orders";
-
 import {Route,Routes} from "react-router-dom";
 import AppContext from "./context";
 import axios from 'axios';
@@ -12,22 +11,23 @@ import React from "react";
 import styles from "./components/Drawer/Drawer.module.scss";
 
 
+
 function App() {
     const [items,setItems] = React.useState([]);
     const [cartitems,setCartItems] = React.useState([]);
     const [Favorites,setFavorites] = React.useState([]);
     const [cartOpened,setCartOpened] = React.useState(false);
     const [isLoading,SetLoading] = React.useState(true);
-
     const [searchValue,SetSearchValue] = React.useState('');
 
-
+    const API_URL_items = process.env.REACT_APP_API_URL_ITEMS;
+    const APP_URL_Cart = process.env.REACT_APP_API_URL_CART;
     React.useEffect(()=>{
         async function fetchData(){
             try{
-               const [itemsResponce,cartResponce,] = await Promise.all([axios.get('https://678270e6c51d092c3dcf8223.mockapi.io/items'),axios.get('https://678270e6c51d092c3dcf8223.mockapi.io/cart')]);
+                const [itemsResponce,cartResponce,] = await Promise.all([axios.get(API_URL_items),axios.get(APP_URL_Cart)]);
 
-            SetLoading(false);
+                SetLoading(false);
             setItems(itemsResponce.data)
             setCartItems(cartResponce.data);
             }
@@ -44,13 +44,14 @@ function App() {
 
             if (FindItem) {
                 setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
-                await axios.delete(`https://678270e6c51d092c3dcf8223.mockapi.io/cart/${FindItem.id}`);
+                await axios.delete(`${APP_URL_Cart}/${FindItem.id}`);
+
             } else {
                 const newItem = { ...obj, parentId: obj.id };
 
                 setCartItems((prev) => [...prev, newItem]);
 
-                const { data } = await axios.post('https://678270e6c51d092c3dcf8223.mockapi.io/cart', newItem);
+                const { data } = await axios.post(APP_URL_Cart, newItem);
 
 
                 setCartItems((prev) =>
@@ -60,13 +61,14 @@ function App() {
                 );
             }
         } catch (error) {
-            console.error("Помилка при додаванні в кошик:", error);
+            console.error("error from cart", error);
         }
     };
     const onRemoveItem = (id) => {
         try{
-        axios.delete(`https://678270e6c51d092c3dcf8223.mockapi.io/cart/${id}`);
-        setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
+            axios.delete(`${APP_URL_Cart}/${id}`);
+
+            setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
         }
         catch(error){
             console.log(error);
